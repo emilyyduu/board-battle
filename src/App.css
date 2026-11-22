@@ -1,0 +1,197 @@
+.app,
+.start-screen {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+  font-family: system-ui, sans-serif;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* Start screen */
+.name-inputs {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin: 2rem 0;
+}
+
+.name-inputs input {
+  font-size: 1.25rem;
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  border: 2px solid #d1d5db;
+}
+
+/* Question */
+.question-card {
+  background: #f3f4f6;
+  color: #111;
+  border-radius: 16px;
+  padding: 2rem;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+
+/* Players side by side, one per half of the board */
+.players {
+  display: flex;
+  gap: 2rem;
+}
+
+.player-panel {
+  flex: 1;
+  border: 3px solid #2563eb;
+  border-radius: 16px;
+  padding: 1rem;
+}
+
+.player-panel.locked {
+  border-color: #dc2626;
+}
+
+.options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+/* Big buttons for little fingers on a touchscreen */
+.option-button {
+  font-size: 1.5rem;
+  padding: 1.5rem;
+  border-radius: 12px;
+  border: none;
+  background: #2563eb;
+  color: white;
+}
+
+.locked-text {
+  color: #dc2626;
+  font-weight: bold;
+}
+
+/* Reward screens */
+.reward-screen {
+  padding: 2rem;
+}
+
+.reward-choices {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  margin: 1.5rem 0;
+}
+
+.reward-button {
+  font-size: 1.5rem;
+  padding: 2rem;
+  border-radius: 16px;
+  border: none;
+  color: white;
+}
+
+.reward-button.mystery {
+  background: #7c3aed;
+}
+
+.reward-button.steal {
+  background: #ea580c;
+}
+
+.next-button {
+  font-size: 1.25rem;
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  border: none;
+  background: #16a34a;
+  color: white;
+  margin-top: 1.5rem;
+}
+
+.reveal-card .collectible {
+  transform: scale(1.5);
+  margin: 3rem auto 1rem;
+  animation: pop 0.5s ease-out;
+}
+
+@keyframes pop {
+  0% { transform: scale(0); }
+  70% { transform: scale(1.8); }
+  100% { transform: scale(1.5); }
+}
+
+/* Collectibles */
+.collection-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+}
+
+.collectible {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 120px;
+  padding: 0.75rem;
+  border-radius: 12px;
+  border: 3px solid;
+  background: white;
+  color: #111;
+}
+
+.collectible:disabled {
+  opacity: 1;
+  cursor: default;
+}
+
+.collectible-emoji {
+  font-size: 2.5rem;
+}
+
+.collectible-name {
+  font-weight: bold;
+  font-size: 0.85rem;
+}
+
+.collectible-rarity {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+}
+
+.collectible.common { border-color: #9ca3af; }
+.collectible.rare { border-color: #2563eb; }
+.collectible.epic { border-color: #7c3aed; }
+.collectible.legendary {
+  border-color: #f59e0b;
+  box-shadow: 0 0 16px #f59e0b;
+}
+
+.collection-grid.small .collectible {
+  width: 80px;
+  padding: 0.4rem;
+}
+
+.collection-grid.small .collectible-emoji {
+  font-size: 1.5rem;
+}
+
+.collections {
+  display: flex;
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.collection {
+  flex: 1;
+}
