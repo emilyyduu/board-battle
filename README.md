@@ -2,8 +2,6 @@
 
 A classroom quiz game for a touchscreen board. Two students race to answer questions on the week's content and win collectible creatures they can keep or steal from each other.
 
-![Board Battle battle screen](docs/preview.png)
-
 ## About
 
 Board Battle gives students who finish work early something useful to do, by turning revision of recent content into a quick head-to-head game.
