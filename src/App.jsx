@@ -1,140 +1,54 @@
 import { useState } from "react";
-import questions from "./data/questions";
-import { rollCollectible } from "./utils/drop";
-import { loadCollection, saveCollection } from "./utils/storage";
-import StartScreen from "./components/StartScreen";
-import QuestionCard from "./components/QuestionCard";
-import PlayerPanel from "./components/PlayerPanel";
-import RewardScreen from "./components/RewardScreen";
-import StealScreen from "./components/StealScreen";
-import RevealScreen from "./components/RevealScreen";
-import CollectibleCard from "./components/CollectibleCard";
+import { loadClasses, saveClasses, makeId } from "./utils/storage";
+import HomeScreen from "./components/HomeScreen";
+import ClassScreen from "./components/ClassScreen";
+import Battle from "./components/Battle";
 import "./App.css";
 
 function App() {
-  // "start" | "question" | "reward" | "steal" | "reveal"
-  const [phase, setPhase] = useState("start");
-  const [players, setPlayers] = useState([]);
-  const [questionIndex, setQuestionIndex] = useState(0);
-  const [lockedOut, setLockedOut] = useState([]); // indexes of players who answered wrong
-  const [winnerIndex, setWinnerIndex] = useState(null);
-  const [reveal, setReveal] = useState(null); // { item, stolen }
+  const [classes, setClasses] = useState(loadClasses);
+  const [classId, setClassId] = useState(null); // which class is open
+  const [battleIds, setBattleIds] = useState(null); // the 2 students currently battling
 
-  const current = questions[questionIndex];
-  const loserIndex = winnerIndex === 0 ? 1 : 0;
+  const currentClass = classes.find((c) => c.id === classId);
 
-  function startGame(nameA, nameB) {
-    setPlayers([
-      { name: nameA, collection: loadCollection(nameA) },
-      { name: nameB, collection: loadCollection(nameB) },
-    ]);
-    setPhase("question");
+  // Every change goes through here, so it's always saved
+  function updateClasses(newClasses) {
+    setClasses(newClasses);
+    saveClasses(newClasses);
   }
 
-  function updatePlayers(newPlayers) {
-    setPlayers(newPlayers);
-    newPlayers.forEach((p) => saveCollection(p.name, p.collection));
+  function createClass(name) {
+    updateClasses([...classes, { id: makeId(), name, students: [], questions: [] }]);
   }
 
-  function handleAnswer(playerIndex, option) {
-    if (option === current.answer) {
-      setWinnerIndex(playerIndex);
-      setPhase("reward");
-    } else {
-      const newLocked = [...lockedOut, playerIndex];
-      setLockedOut(newLocked);
-      // Both wrong: nobody wins, move on
-      if (newLocked.length === 2) nextQuestion();
-    }
+  function updateClass(updated) {
+    updateClasses(classes.map((c) => (c.id === updated.id ? updated : c)));
   }
 
-  function collectMystery() {
-    const item = rollCollectible();
-    const newPlayers = players.map((p, i) =>
-      i === winnerIndex ? { ...p, collection: [...p.collection, item] } : p
+  if (currentClass && battleIds) {
+    return (
+      <Battle
+        classData={currentClass}
+        playerIds={battleIds}
+        onUpdateClass={updateClass}
+        onExit={() => setBattleIds(null)}
+      />
     );
-    updatePlayers(newPlayers);
-    setReveal({ item, stolen: false });
-    setPhase("reveal");
   }
 
-  function stealItem(itemIndex) {
-    const item = players[loserIndex].collection[itemIndex];
-    const newPlayers = players.map((p, i) => {
-      if (i === winnerIndex) return { ...p, collection: [...p.collection, item] };
-      if (i === loserIndex) return { ...p, collection: p.collection.filter((_, j) => j !== itemIndex) };
-      return p;
-    });
-    updatePlayers(newPlayers);
-    setReveal({ item, stolen: true });
-    setPhase("reveal");
+  if (currentClass) {
+    return (
+      <ClassScreen
+        classData={currentClass}
+        onUpdateClass={updateClass}
+        onBack={() => setClassId(null)}
+        onStartBattle={setBattleIds}
+      />
+    );
   }
 
-  function nextQuestion() {
-    setQuestionIndex((questionIndex + 1) % questions.length);
-    setLockedOut([]);
-    setWinnerIndex(null);
-    setReveal(null);
-    setPhase("question");
-  }
-
-  if (phase === "start") return <StartScreen onStart={startGame} />;
-
-  return (
-    <div className="app">
-      {phase === "question" && (
-        <>
-          <QuestionCard question={current.question} />
-          <div className="players">
-            {players.map((player, i) => (
-              <PlayerPanel
-                key={i}
-                player={player}
-                options={current.options}
-                locked={lockedOut.includes(i)}
-                onAnswer={(option) => handleAnswer(i, option)}
-              />
-            ))}
-          </div>
-        </>
-      )}
-
-      {phase === "reward" && (
-        <RewardScreen
-          winner={players[winnerIndex]}
-          loser={players[loserIndex]}
-          onCollect={collectMystery}
-          onSteal={() => setPhase("steal")}
-        />
-      )}
-
-      {phase === "steal" && (
-        <StealScreen winner={players[winnerIndex]} loser={players[loserIndex]} onSteal={stealItem} />
-      )}
-
-      {phase === "reveal" && (
-        <RevealScreen
-          playerName={players[winnerIndex].name}
-          item={reveal.item}
-          stolen={reveal.stolen}
-          onNext={nextQuestion}
-        />
-      )}
-
-      <div className="collections">
-        {players.map((player, i) => (
-          <div key={i} className="collection">
-            <h3>{player.name}'s collection</h3>
-            <div className="collection-grid small">
-              {player.collection.map((item, j) => (
-                <CollectibleCard key={j} item={item} />
-              ))}
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
+  return <HomeScreen classes={classes} onCreateClass={createClass} onOpenClass={setClassId} />;
 }
 
 export default App;

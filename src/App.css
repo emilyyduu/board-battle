@@ -195,3 +195,205 @@ button:disabled {
 .collection {
   flex: 1;
 }
+
+/* Shared */
+.primary-button {
+  font-size: 1rem;
+  padding: 0.75rem 1.25rem;
+  border-radius: 10px;
+  border: none;
+  background: #2563eb;
+  color: white;
+}
+
+.link-button {
+  background: none;
+  border: none;
+  color: #2563eb;
+  font-size: 1rem;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.hint {
+  color: #6b7280;
+}
+
+input,
+textarea {
+  font-family: inherit;
+  font-size: 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  border: 2px solid #d1d5db;
+}
+
+/* Home */
+.class-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.class-button {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 1.25rem 2rem;
+  border-radius: 14px;
+  border: 3px solid #2563eb;
+  background: white;
+  color: #111;
+  font-size: 1.1rem;
+}
+
+.inline-form {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+}
+
+.inline-form input {
+  width: 320px;
+}
+
+/* Class screen */
+.student-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+}
+
+.student-card {
+  position: relative;
+}
+
+.student-select {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 110px;
+  padding: 0.75rem;
+  border-radius: 14px;
+  border: 3px solid #d1d5db;
+  background: white;
+  color: #111;
+  font-size: 1rem;
+}
+
+.student-card.selected .student-select {
+  border-color: #16a34a;
+  background: #dcfce7;
+}
+
+.student-avatar {
+  font-size: 2.5rem;
+}
+
+.remove-button {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: none;
+  background: #ef4444;
+  color: white;
+  font-size: 0.8rem;
+}
+
+.class-panels {
+  display: flex;
+  gap: 2rem;
+  margin-top: 2.5rem;
+  text-align: left;
+}
+
+.class-panels > * {
+  flex: 1;
+}
+
+.leaderboard ol {
+  padding-left: 1.25rem;
+}
+
+.leaderboard li {
+  margin-bottom: 0.5rem;
+}
+
+.leaderboard li span:first-child {
+  font-weight: bold;
+  margin-right: 0.75rem;
+}
+
+.add-student {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.add-student p,
+.add-student h3 {
+  margin: 0;
+}
+
+.avatar-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.4rem;
+}
+
+.avatar-option {
+  font-size: 1.75rem;
+  padding: 0.4rem;
+  border-radius: 10px;
+  border: 3px solid transparent;
+  background: #f3f4f6;
+}
+
+.avatar-option.selected {
+  border-color: #2563eb;
+  background: #dbeafe;
+}
+
+/* Question import */
+.question-import {
+  margin-top: 2.5rem;
+  text-align: left;
+}
+
+.question-import textarea {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.import-actions {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-top: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.file-label {
+  color: #2563eb;
+  cursor: pointer;
+}
+
+.file-label input {
+  display: none;
+}
+
+.message.error {
+  color: #dc2626;
+  font-weight: bold;
+}
+
+.message.success {
+  color: #16a34a;
+  font-weight: bold;
+}
