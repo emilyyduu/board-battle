@@ -2,7 +2,6 @@
 
 A classroom quiz game I built for my selective entry tutoring students. Two students go up to the board, race to answer questions on that week's content, and win collectible creatures they can keep or steal from each other.
 
-![Board Battle battle screen](docs/preview.png)
 
 ## Why I built it
 
