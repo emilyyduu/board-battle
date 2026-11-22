@@ -1,16 +1,12 @@
 # ⚔️ Board Battle
 
-A classroom quiz game I built for my selective entry tutoring students. Two students go up to the board, race to answer questions on that week's content, and win collectible creatures they can keep or steal from each other.
+A classroom quiz game for a touchscreen board. Two students race to answer questions on the week's content and win collectible creatures they can keep or steal from each other.
 
+![Board Battle battle screen](docs/preview.png)
 
-## Why I built it
+## About
 
-I tutor selective entry maths and English, and two problems kept coming up in class:
-
-- **Students work at different paces.** The fast ones finish early and end up waiting around or distracting others.
-- **Weekly content needs revising.** We already quiz students on last week's work, but a worksheet isn't very exciting.
-
-Board Battle turns that revision into a quick head-to-head game. The collecting and stealing idea came from games my students are into right now, so it gives them a reason to want a turn at the board.
+Board Battle gives students who finish work early something useful to do, by turning revision of recent content into a quick head-to-head game.
 
 ## Features
 
@@ -24,10 +20,10 @@ Board Battle turns that revision into a quick head-to-head game. The collecting 
 
 ## Tech stack
 
-| Tool | Why I used it |
+| Tool | Why |
 |---|---|
-| **React** | The game state changes constantly (scores, rounds, collections), and React updates the screen automatically when state changes. Components let me reuse pieces like the creature card across several screens. |
-| **Vite** | Quick to set up, with instant reloads while developing, which made it easy to tweak how the game feels. |
+| **React** | The game state changes constantly (scores, rounds, collections), and React updates the screen automatically when state changes. Components make it easy to reuse pieces like the creature card across several screens. |
+| **Vite** | Quick to set up, with instant reloads while developing, which makes it easy to tweak how the game feels. |
 | **CSS** | Full control over the look. All colours are defined once as variables in `index.css`. |
 | **localStorage** | Every student plays on the same classroom board, so saving to that one device is enough for now, with no backend needed. |
 | **GitHub + Vercel** | Every push to GitHub automatically updates the live site. |
@@ -47,7 +43,7 @@ Then open the `localhost` link shown in the terminal.
 
 ## Adding this week's questions
 
-I upload the weekly booklet to an AI tool and ask for multiple-choice questions in this format:
+Questions are imported as JSON in this format:
 
 ```json
 [
@@ -59,7 +55,9 @@ I upload the weekly booklet to an AI tool and ask for multiple-choice questions 
 ]
 ```
 
-Then I paste the result into the class's import box. The app checks every question before importing it. It catches broken JSON, missing question text, the wrong number of options, and answers that don't match any option, and it tells you exactly which question has the problem. AI-generated questions can be wrong, so nothing reaches the students without being checked first.
+Paste the JSON into a class's import box or upload a `.json` file. Questions can be written by hand or generated from a worksheet with an AI tool.
+
+Every question is checked before it's imported. The app catches broken JSON, missing question text, the wrong number of options, and answers that don't match any option, and shows which question has the problem.
 
 ## Project structure
 
@@ -96,4 +94,4 @@ src/
 
 - **Sync across devices:** Move storage to a database like Supabase so students can check their collection at home.
 - **Generate questions in the app:** Upload the booklet PDF directly and generate questions there, with a review screen before they go live.
-- **Protect a favourite:** Let each student protect one creature so a student who keeps losing doesn't get discouraged.
+- **Protect a favourite:** Let each student protect one creature from being stolen.
