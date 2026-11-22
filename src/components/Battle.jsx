@@ -77,7 +77,7 @@ function Battle({ classData, playerIds, onUpdateClass, onExit }) {
 
       {phase === "question" && (
         <>
-          <p className="hint">
+          <p className="question-number">
             Question {questionIndex + 1} of {questions.length}
           </p>
           <QuestionCard question={current.question} />
@@ -86,6 +86,7 @@ function Battle({ classData, playerIds, onUpdateClass, onExit }) {
               <PlayerPanel
                 key={player.id}
                 player={player}
+                side={i}
                 options={current.options}
                 locked={lockedOut.includes(i)}
                 onAnswer={(option) => handleAnswer(i, option)}
@@ -124,6 +125,7 @@ function Battle({ classData, playerIds, onUpdateClass, onExit }) {
               {player.avatar} {player.name}'s collection
             </h3>
             <div className="collection-grid small">
+              {player.collection.length === 0 && <p className="empty-collection">Nothing yet. Win a round!</p>}
               {player.collection.map((item, j) => (
                 <CollectibleCard key={j} item={item} />
               ))}

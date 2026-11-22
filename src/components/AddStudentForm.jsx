@@ -13,7 +13,7 @@ function AddStudentForm({ onAdd }) {
   }
 
   return (
-    <form className="add-student" onSubmit={handleSubmit}>
+    <form className="panel add-student" onSubmit={handleSubmit}>
       <h3>Add a student</h3>
       <input placeholder="Student name" value={name} onChange={(e) => setName(e.target.value)} />
       <p>Pick your character:</p>

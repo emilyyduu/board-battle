@@ -1,6 +1,6 @@
-function PlayerPanel({ player, options, locked, onAnswer }) {
+function PlayerPanel({ player, side, options, locked, onAnswer }) {
   return (
-    <div className={`player-panel ${locked ? "locked" : ""}`}>
+    <div className={`player-panel side-${side} ${locked ? "locked" : ""}`}>
       <h2>
         {player.avatar} {player.name}
       </h2>

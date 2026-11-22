@@ -23,7 +23,7 @@ function QuestionImport({ questionCount, onImport }) {
   }
 
   return (
-    <div className="question-import">
+    <div className="panel question-import">
       <h3>This week's questions</h3>
       <p className="hint">
         {questionCount > 0 ? `${questionCount} questions loaded.` : "Using sample questions until you import some."}
